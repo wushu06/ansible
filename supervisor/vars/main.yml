@@ -1,0 +1,23 @@
+supervisor:
+
+  runtime:
+    dir: /var/run/supervisor
+    nodaemon: "false"
+    socket: supervisord.sock
+    pidfile: supervisord.pid
+
+  config:
+    dir: /etc/supervisord.d
+    file: /etc/supervisord.conf
+    default: /etc/default.supervisord.conf
+
+  log:
+    dir: /var/log/supervisord
+    file: supervisord.log
+    level: info
+
+  http:
+    file: status.ini
+    port: 127.0.0.1:9001
+    username: user
+    password: 123

@@ -1,0 +1,26 @@
+---
+- name: Enable php
+  shell: "amazon-linux-extras enable php7.2"
+
+- name: Install php-fpm and deps
+  yum: name={{ item }} state=present
+  with_items:
+    - php-cli
+    - php-fpm
+    - php-mysqli
+    - php-gd
+    - php-pdo
+    - php-mbstring
+    - php-pear
+    - curl
+    - php-xml
+    - php-mcrypt
+    - php-intl
+    - php-soap
+    - php-opcache
+
+- name: Sed infos
+  shell: 'grep -qxF "listen = 9000" /etc/php-fpm.d/www.conf || echo "listen = 9000" >> /etc/php-fpm.d/www.conf'
+  notify: restart php-fpm
+
+
