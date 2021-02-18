@@ -3,7 +3,7 @@
   - name: "sync website"
     synchronize:
       src: site/
-      dest: /var/www/{{ domain }}
+      dest: /var/www/html/current
       archive: no
       checksum: yes
       recursive: yes

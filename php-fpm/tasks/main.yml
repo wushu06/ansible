@@ -18,9 +18,38 @@
     - php-intl
     - php-soap
     - php-opcache
+    - php-devel
+    - php-bcmath
+    - php-json
+    - php-iconv
+    - php-zip
 
-- name: Sed infos
+- name: Change php values
+  shell: |
+    sed -i "s@expose_php = On@expose_php = Off@" /etc/php.ini
+    sed -i "s@max_execution_time = 30@max_execution_time = 1800@" /etc/php.ini
+    sed '$ a\
+    zlib.output_compression = On' /etc/php.ini
+    sed -i 's@;session.save_path = "/tmp"@session.save_path = "/var/lib/php/session"@' /etc/php.ini
+    sed -i 's@memory_limit = 128M@memory_limit = 1G@' /etc/php.ini
+    sed -i "s@user = apache@user = ec2-user@" /etc/php-fpm.d/www.conf
+    sed -i "s@group = apache@group = ec2-user@" /etc/php-fpm.d/www.conf
+    sed -i "s@;listen.owner = nobody@listen.owner = ec2-user@" /etc/php-fpm.d/www.conf
+    sed -i "s@;listen.mode = 0660@listen.mode = 0660@" /etc/php-fpm.d/www.conf
+
+- name: Assing php-fpm port
   shell: 'grep -qxF "listen = 9000" /etc/php-fpm.d/www.conf || echo "listen = 9000" >> /etc/php-fpm.d/www.conf'
+  notify: restart php-fpm
+
+- name: Add php-fpm variables
+  shell: |
+    grep -qxF "env[TMP] = /tmp" /etc/php-fpm.d/www.conf || cat <<EOF | tee --append /etc/php-fpm.d/www.conf
+    env[HOSTNAME] = $HOSTNAME
+    env[PATH] = /usr/local/bin:/usr/bin:/bin
+    env[TMP] = /tmp
+    env[TMPDIR] = /tmp
+    env[TEMP] = /tmp
+    EOF
   notify: restart php-fpm
 
 
