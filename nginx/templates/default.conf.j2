@@ -10,7 +10,7 @@
  server {
     listen 80;
     server_name 192.168.1.23;
-    set $MAGE_ROOT /var/www/html/current;
+    set $MAGE_ROOT /var/www/{{ domain }};
     set $MAGE_DEBUG_SHOW_ARGS 0;
 
 

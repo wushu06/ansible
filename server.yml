@@ -4,3 +4,4 @@
     - nginx
     - php-fpm
     - mysql
+    - deployer

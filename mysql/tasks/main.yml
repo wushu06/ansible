@@ -15,7 +15,7 @@
   shell: |
     password_match=`awk '/A temporary password is generated for/ {a=$0} END{ print a }' /var/log/mysqld.log | awk '{print $(NF)}'`
     echo $password_match
-    mysql -uroot -p$password_match --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Test1234.'; flush privileges; CREATE DATABASE wordpress "
+    mysql -uroot -p$password_match --connect-expired-password -e "ALTER USER 'root'@'localhost' IDENTIFIED BY 'Test1234.'; flush privileges; CREATE DATABASE magento "
     echo "[client]"
     user=root
     password=Test1234. > /root/.my.cnf
