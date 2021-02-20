@@ -9,16 +9,15 @@
 
 - name: Install deployer step two
   shell: |
-    mv /tmp/deployer.phar /usr/bin/deploy
+    mv /tmp/deployer.phar /usr/bin/dep
     chown root:root /usr/bin/dep
-    chown root:root /usr/bin/deploy
     chmod +x /usr/bin/dep
-    chmod +x /usr/bin/deploy
   when: not stat_result.stat.exists
 
 
 - name: Copy deploy.php
   copy: src={{ item.src }} dest={{ item.dest }}
   with_items:
-    - { src: 'templates/deploy.php', dest: '/var/www/html/deploy.php' }
+    - { src: 'templates/deploy.php', dest: '/var/www/html/__deploy.php' }
+    - { src: 'templates/setup.php', dest: '/var/www/html/deploy.php' }
   when: not stat_result.stat.exists

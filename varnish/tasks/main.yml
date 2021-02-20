@@ -1,0 +1,21 @@
+---
+- name: Install Varnish via amazon-linux-extras packages
+  shell: "amazon-linux-extras install epel -y"
+
+- name: Install Varnish
+  yum: name=varnish
+
+- name: Change varnish port to 80
+  shell: sed -i 's/VARNISH_LISTEN_PORT\s*=.*/VARNISH_LISTEN_PORT=80/g' /etc/varnish/varnish.params
+
+- name: copy varnish varnish.vcl
+  template:
+    src: templates/varnish.vcl
+    dest: /etc/varnish/default.vcl
+    owner: root
+    group: root
+    mode: '0644'
+  notify: restart varnish
+
+- name: varnish service state
+  service: name=varnish state=started enabled=yes

@@ -4,4 +4,6 @@
     - nginx
     - php-fpm
     - mysql
+    - composer
+    - varnish
     - deployer

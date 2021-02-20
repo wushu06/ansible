@@ -1,11 +1,14 @@
 - hosts: web
   tasks:
-  - name: "sync website"
-    synchronize:
-      src: site/
-      dest: /var/www/html/current
-      archive: no
-      checksum: yes
-      recursive: yes
-      delete: yes
-    become: no
+    - name: "sync website"
+      synchronize:
+        src: site/shared
+        dest: /var/www/html
+        archive: no
+        checksum: yes
+        recursive: yes
+        delete: yes
+      become: no
+
+    - name: "Run deploy setup"
+      shell: cd /var/www/html && dep deploy

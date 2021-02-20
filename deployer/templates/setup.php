@@ -46,6 +46,27 @@ task('magento:enable', function () {
     run("{{bin/php}} {{release_path}}/bin/magento module:enable --all");
 });
 
+desc('Setup Magento');
+task('magento:setup', function () {
+    run('{{bin/php}} {{release_path}}/bin/magento setup:install \
+        --base-url="http://192.168.1.23/" \
+        --db-host="localhost" \
+        --db-name="magento" \
+        --db-user="root" \
+        --db-password="Test1234."  \
+        --admin-firstname="Nour" \
+        --admin-lastname="Latreche" \
+        --admin-email="nour@elementarydigital.co.uk" \
+        --admin-user="ed_admin" \
+        --admin-password="Test1234" \
+        --language="en_GB" \
+        --currency="GBP" \
+        --timezone="Europe/London" \
+        --use-rewrites="1" \
+        --backend-frontname="admin"'
+    );
+});
+
 desc('Compile magento di');
 task('magento:compile', function () {
     run("{{bin/php}} {{release_path}}/bin/magento setup:di:compile");
@@ -74,6 +95,7 @@ task('composer:auth', function () {
 desc('Removes auth.json file');
 task('composer:auth:remove', function () {
     run("test -f {{release_path}}/auth.json && rm {{release_path}}/auth.json");
+    run("test -f {{release_path}}/app/etc/env.php && rm {{release_path}}/app/etc/env.php");
 });
 
 desc('Deploy assets');
@@ -102,6 +124,11 @@ task('magento:upgrade:db', function () {
     run("{{bin/php}} {{release_path}}/bin/magento setup:upgrade");
 });
 
+desc('Set production mode');
+task('magento:mode', function () {
+    run("{{bin/php}} {{release_path}}/bin/magento deploy:mode:set production --skip-compilation");
+});
+
 desc('Flush Magento Cache');
 task('magento:cache:flush', function () {
     run("{{bin/php}} {{release_path}}/bin/magento cache:flush");
@@ -119,9 +146,10 @@ task('deploy:htaccess', function () {
 
 desc('Magento2 deployment operations');
 task('deploy:magento', [
-    'magento:enable',
+    'magento:setup',
     // 'magento:maintenance:enable',
     'magento:upgrade:db',
+    'magento:mode',
     // 'magento:maintenance:disable',
     'magento:compile',
     'magento:deploy:assets',
@@ -140,8 +168,8 @@ task('deploy', [
     'composer:auth',
     'deploy:vendors',
     'deploy:clear_paths',
-    'deploy:magento',
     'composer:auth:remove',
+    'deploy:magento',
     'deploy:symlink',
     'deploy:unlock',
     'cleanup',

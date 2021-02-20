@@ -36,6 +36,7 @@
     sed -i "s@group = apache@group = ec2-user@" /etc/php-fpm.d/www.conf
     sed -i "s@;listen.owner = nobody@listen.owner = ec2-user@" /etc/php-fpm.d/www.conf
     sed -i "s@;listen.mode = 0660@listen.mode = 0660@" /etc/php-fpm.d/www.conf
+    chown root:ec2-user /var/lib/php/session
 
 - name: Assing php-fpm port
   shell: 'grep -qxF "listen = 9000" /etc/php-fpm.d/www.conf || echo "listen = 9000" >> /etc/php-fpm.d/www.conf'

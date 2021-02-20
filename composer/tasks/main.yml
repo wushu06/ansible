@@ -1,0 +1,32 @@
+---
+- name: download composer version 1
+  get_url:
+#    url: https://getcomposer.org/installer
+    url: https://getcomposer.org/download/1.10.17/composer.phar
+    dest: /tmp/composer.phar
+  tags: composer
+
+#- name: install composer
+#  shell: cat /tmp/installer | php -- --install-dir=/usr/local/bin
+#  args:
+#    creates: /usr/local/bin/composer
+#  tags: composer
+
+- name: rename composer.phar to composer
+  shell: mv /tmp/composer.phar /usr/local/bin/composer
+  args:
+    creates: /usr/local/bin/composer
+  tags: composer
+
+- name: make composer executable
+  file:
+    path: /usr/local/bin/composer
+    mode: a+x
+    state: file
+  tags: composer
+
+- name: Install git
+  yum:
+    name: git
+    state: present
+    update_cache: yes

@@ -1,0 +1,10 @@
+[2021-02-19 21:48:03] main.ERROR: NOTE: Manual static content deployment is not required in "default" and "developer" modes.
+In "default" and "developer" modes static contents are being deployed automatically on demand.
+If you still want to deploy in these modes, use -f option: 'bin/magento setup:static-content:deploy -f'
+#0 /var/www/html/releases/2/vendor/symfony/console/Command/Command.php(255): Magento\Setup\Console\Command\DeployStaticContentCommand->execute(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#1 /var/www/html/releases/2/vendor/symfony/console/Application.php(1001): Symfony\Component\Console\Command\Command->run(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#2 /var/www/html/releases/2/vendor/symfony/console/Application.php(271): Symfony\Component\Console\Application->doRunCommand(Object(Magento\Setup\Console\Command\DeployStaticContentCommand), Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#3 /var/www/html/releases/2/vendor/magento/framework/Console/Cli.php(115): Symfony\Component\Console\Application->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#4 /var/www/html/releases/2/vendor/symfony/console/Application.php(147): Magento\Framework\Console\Cli->doRun(Object(Symfony\Component\Console\Input\ArgvInput), Object(Symfony\Component\Console\Output\ConsoleOutput))
+#5 /var/www/html/releases/2/bin/magento(23): Symfony\Component\Console\Application->run()
+#6 {main} [] []
