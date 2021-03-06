@@ -1,0 +1,34 @@
+---
+- name: Install Java using yum
+  yum: name=java-1.8.0-openjdk.x86_64 state=installed
+
+- name: Install Elasticsearch
+  shell: |
+    rpm --import https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    cat > /etc/yum.repos.d/elastic-7.x.repo << EOF
+    [elasticsearch-7.x]
+    name=Elasticsearch repository for 7.x packages
+    baseurl=https://artifacts.elastic.co/packages/7.x/yum
+    gpgcheck=1
+    gpgkey=https://artifacts.elastic.co/GPG-KEY-elasticsearch
+    enabled=1
+    autorefresh=1
+    type=rpm-md
+    EOF
+
+- name: Install Elasticsearch using yum
+  yum: name=elasticsearch state=installed
+
+- name: Install Kibana using yum
+  yum: name=kibana state=installed
+
+- name: Enable Elasticsearch Service
+  service: name=elasticsearch.service enabled=yes
+
+- name: Start Elasticsearch Service
+  service: name=elasticsearch state=started
+
+- name: Start Kibana Service
+  service: name=kibana state=started
+
+

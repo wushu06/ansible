@@ -6,6 +6,8 @@ require_once 'recipe/common.php';
 
 set('repository', 'https://github.com/wushu06/magento2-sample.git');
 
+set('branch', 'feature/v2.4');
+
 set('deploy_path', '/var/www/html');
 
 set('default_timeout', 900);

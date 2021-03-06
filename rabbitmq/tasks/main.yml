@@ -1,0 +1,10 @@
+- name: install epel-release
+  yum: name=epel-release state=latest
+  tags: erlang
+
+- name: install erlang from EPEL
+  yum: name=erlang state=latest
+  tags: erlang
+
+- name: install new rabbitmq
+  yum: name=https://www.rabbitmq.com/releases/rabbitmq-server/v3.5.6/rabbitmq-server-3.5.6-1.noarch.rpm state=present

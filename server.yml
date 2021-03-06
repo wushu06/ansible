@@ -1,9 +1,13 @@
 - hosts: web
   become: yes
   roles:
-    - nginx
-    - php-fpm
-    - mysql
-    - composer
-    - varnish
+#    - nginx
+#    - php-fpm
+#    - mysql
+#    - elasticsearch
+#    - composer
+#    - varnish
+#    - redis
+#    - rabbitmq # not working
+#    - supervisor
     - deployer

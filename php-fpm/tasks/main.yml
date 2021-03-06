@@ -1,6 +1,6 @@
 ---
 - name: Enable php
-  shell: "amazon-linux-extras enable php7.2"
+  shell: "amazon-linux-extras enable php7.4"
 
 - name: Install php-fpm and deps
   yum: name={{ item }} state=present
@@ -14,7 +14,6 @@
     - php-pear
     - curl
     - php-xml
-    - php-mcrypt
     - php-intl
     - php-soap
     - php-opcache
@@ -23,6 +22,7 @@
     - php-json
     - php-iconv
     - php-zip
+    - php-sodium
 
 - name: Change php values
   shell: |

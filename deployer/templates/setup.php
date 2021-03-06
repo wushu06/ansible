@@ -6,6 +6,8 @@ require_once 'recipe/common.php';
 
 set('repository', 'https://github.com/wushu06/magento2-sample.git');
 
+set('branch', 'feature/v2.4');
+
 set('deploy_path', '/var/www/html');
 
 set('default_timeout', 900);
@@ -62,8 +64,18 @@ task('magento:setup', function () {
         --language="en_GB" \
         --currency="GBP" \
         --timezone="Europe/London" \
+        --cache-backend=redis \
+        --cache-backend-redis-server=127.0.0.1 \
+        --cache-backend-redis-db=0 \
+        --session-save=redis \
+        --session-save-redis-host=127.0.0.1 \
+        --session-save-redis-log-level=4 \
+        --session-save-redis-db=2 \
         --use-rewrites="1" \
-        --backend-frontname="admin"'
+        --backend-frontname="admin" \
+        --search-engine=elasticsearch7 \
+        --elasticsearch-host=127.0.0.1 \
+        --elasticsearch-port=9200'
     );
 });
 
