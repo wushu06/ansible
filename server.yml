@@ -9,5 +9,5 @@
 #    - varnish
 #    - redis
 #    - rabbitmq # not working
-#    - supervisor
-    - deployer
+    - supervisor
+#    - deployer

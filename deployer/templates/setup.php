@@ -64,9 +64,6 @@ task('magento:setup', function () {
         --language="en_GB" \
         --currency="GBP" \
         --timezone="Europe/London" \
-        --cache-backend=redis \
-        --cache-backend-redis-server=127.0.0.1 \
-        --cache-backend-redis-db=0 \
         --session-save=redis \
         --session-save-redis-host=127.0.0.1 \
         --session-save-redis-log-level=4 \
